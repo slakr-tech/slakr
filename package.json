@@ -1,0 +1,9 @@
+{
+  "name": "social-app",
+  "version": "1.0.0",
+  "author": "slakr",
+  "license": "ISC",
+  "devDependencies": {
+    "firebase-tools": "^9.0.1"
+  }
+}
