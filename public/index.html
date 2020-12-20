@@ -30,8 +30,33 @@
 
     <section id="whenSignedOut">
 
-        <img class="cbtn" id="signInBtn" width="200" src="./images/google_signin_buttons/blue.png" alt="Sign in with google" srcset="">
+        <input type="email" placeholder="Email" id="emailInputLogIn">
+        <input type="password" id="passwordInputLogIn">
+        <button onclick="signIn()">Sign In</button>
+        <br>
+        <br>
+        <img class="signInProvider" id="googleSignInBtn" width="200" src="./images/google_signin_buttons/blue.png" alt="Sign in with google">
+        <br>
+        <br>
+        <br>
+        <button onclick="showSignUp()">Sign Up</button>
     
+    </section>
+
+    <section id="whenCreateAccount" hidden="true">
+
+        <input type="email" placeholder="Email" id="emailInputCreateAccount">
+        <br>
+        <input type="password" id="passwordInputCreateAccount">
+        <br>
+        <input type="password" id="passwordInputCreateAccountConfirm">
+        <br>
+        <button onclick="signUp()">Sign Up</button>
+        <br>
+        <br>
+        <br>
+        <img class="signInProvider" id="googleSignUpBtn" width="200" src="./images/google_signin_buttons/blue.png" alt="Sign up with google">
+
     </section>
     
     <section id="whenSignedIn" hidden="true">
@@ -40,7 +65,7 @@
     
         <button id="signOutBtn">Sign Out</button>
     
-      </section>
+    </section>
     
 
 </body>
