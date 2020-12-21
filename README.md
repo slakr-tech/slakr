@@ -15,9 +15,9 @@ To change the host, change the following variable in settings.py:
 self.host = '0.0.0.0'
 ```
 \
-To change the host, change the following variable in settings.py
+To turn off debug mode, change the following variable in settings.py
 ```python
-self.host = '0.0.0.0'
+self.debug = False
 ```
 \
 Learn Flask:
