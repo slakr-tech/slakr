@@ -1,1 +1,4 @@
 __pycache__
+pyenv
+venv
+ENV
