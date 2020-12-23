@@ -1,6 +1,10 @@
 import os
 
 class Run:
+    def __init__(self):
+        self.debug = True
+        self.host = '0.0.0.0'
+        
     def getPort(self, portENV='PORT', defPort=5000):
         try:
             if os.environ.get(portENV):
@@ -10,7 +14,3 @@ class Run:
         
         except:
             return defPort
-
-    def __init__(self):
-        self.debug = True
-        self.host = '0.0.0.0'
