@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %} Sign In {% endblock %}
+
+{% block content %}
+<h1>Log In</h1>
+
+<form>
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email address/Username</label>
+        <input name="un" type="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+        <label for="pw" class="form-label">Password</label>
+        <input name="pw" type="password" class="form-control" id="pw">
+    </div>
+    <div class="mb-3 form-check">
+        <input name="session" type="checkbox" class="form-check-input" id="session">
+        <label class="form-check-label" for="session">Keep Me Logged In</label>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Log In">
+</form>
+{% endblock %}
