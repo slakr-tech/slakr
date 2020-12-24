@@ -1,48 +1,43 @@
 from cryptography.fernet import Fernet
 import os, sys
 
-encryption_key = os.environ.get('chatreEncryptionKey').encode()
+encryption_key = os.environ.get('chatreEncryptionKey')
 
 def encrypt(string, bts=True):
-    if not encryption_key:
+    if not os.environ.get('chatreEncryptionKey'):
         print('setting encryption key...')
         os.environ["chatreEncryptionKey"] = Fernet.generate_key().decode()
+        encryption_key = os.environ["chatreEncryptionKey"].encode()
 
-    try:
-        if type(string) == type('a'):
-            encoded = string.encode()
-        else:
-            encoded = string
+    if type(string) == type('a'):
+        encoded = string.encode()
+    else:
+        encoded = string
 
-        f = Fernet(encryption_key)
-        
-        if bts:
-            return f.encrypt(encoded)
+    f = Fernet(encryption_key)
+    
+    if bts:
+        return f.encrypt(encoded)
 
-        else:
-            return f.encrypt(encoded).decode()
-
-    except:
-        print(sys.exc_info()[0])
+    else:
+        return f.encrypt(encoded).decode()
 
 
 def decrypt(string, bts=True):
-    try:
-        if type(string) == type('a'):
-            encoded = string.encode()
-        else:
-            encoded = string
-        f = Fernet(encryption_key)
-        decrypted = f.decrypt(encoded)
+    encryption_key = os.environ.get('chatreEncryptionKey').encode()
+    if type(string) == type('a'):
+        encoded = string.encode()
+    else:
+        encoded = string
+    f = Fernet(encryption_key)
+    decrypted = f.decrypt(encoded)
 
-        if bts:
-            return decrypted
+    if bts:
+        return decrypted
 
-        else:
-            return decrypted.decode()
+    else:
+        return decrypted.decode()
     
-    except:
-        print(sys.exc_info()[0])
 
 def test():
     string = 'test'

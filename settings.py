@@ -6,14 +6,12 @@ Run = {
 }
 
 def get_port(portENV='PORT', defPort=5000):
-    try:
-        if os.environ.get(portENV):
-            if len(os.environ[portENV]) != 4:
-                raise Exception()
-            return int(os.environ[portENV])
-        
-    except:
-        return defPort
+    if os.environ.get(portENV):
+        if len(os.environ[portENV]) != 4:
+            return defPort
+        return int(os.environ[portENV])
+    return defPort
+
 
 Run = {
     "DEBUG":True,

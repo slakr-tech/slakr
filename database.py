@@ -21,29 +21,25 @@ def is_user_taken(username, email):
 
 
 def create_user(username, first_name, last_name, email, age, password1, password2):
-    try:
-        minimum_age = settings.Rules["MINIMUM_AGE"]
-        user_taken = is_user_taken(username, email)
+    minimum_age = settings.Rules["MINIMUM_AGE"]
+    user_taken = is_user_taken(username, email)
 
-        if age < minimum_age:
-            raise errors.AgeError(age)
-        
-        elif user_taken:
-            raise errors.UserTakenError(user_taken)
+    if age < minimum_age:
+        raise errors.AgeError(age)
+    
+    elif user_taken:
+        raise errors.UserTakenError(user_taken)
 
-        elif password1 != password2:
-            raise errors.PasswordsDoNotMatchError('Your passwords must match')
+    elif password1 != password2:
+        raise errors.PasswordsDoNotMatchError('Your passwords must match')
 
-        collection.insert_one({
-            "username": username,
-            "first_name":first_name,
-            "last_name":last_name,
-            "email":email,
-            "age":age,
-            "password": encryption.encrypt(password1),
-        })
+    collection.insert_one({
+        "username": username,
+        "first_name":first_name,
+        "last_name":last_name,
+        "email":email,
+        "age":age,
+        "password": encryption.encrypt(password1),
+    })
 
-        return 'User created successfully!'
-
-    except:
-        return sys.exc_info()[0]
+    return 'User created successfully!'

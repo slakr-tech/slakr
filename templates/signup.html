@@ -8,12 +8,12 @@
 <form method="post">
     <div class="mb-3">
         <label for="fnInput" class="form-label">First Name</label>
-        <input name="fn" type="email" class="form-control" id="fnInput" aria-describedby="emailHelp">
+        <input name="fn" type="text" class="form-control" id="fnInput" aria-describedby="emailHelp">
     </div>
 
     <div class="mb-3">
         <label for="lnInput" class="form-label">Last Name</label>
-        <input name="fn" type="email" class="form-control" id="lnInput" aria-describedby="emailHelp">
+        <input name="ln" type="text" class="form-control" id="lnInput" aria-describedby="emailHelp">
     </div>
 
     <div class="mb-3">
@@ -23,8 +23,8 @@
     </div>
 
     <div class="mb-3">
-        <label for="userNameInput" class="form-label">Email address</label>
-        <input name="uname" type="email" class="form-control" id="userNameInput" aria-describedby="emailHelp">
+        <label for="userNameInput" class="form-label">Username</label>
+        <input name="uname" type="text" class="form-control" id="userNameInput" aria-describedby="emailHelp">
     </div>
 
     <div class="mb-3">
@@ -38,12 +38,12 @@
     </div>
 
     <div class="form-group col-md-2">
-        <label for="inputAge">Zip</label>
-        <input type="number" class="form-control" id="inputAge">
+        <label for="inputAge">Age</label>
+        <input name="age" type="number" class="form-control" id="inputAge">
     </div>
 
+    <br>
     
-    
-    <input type="submit" class="btn btn-primary">Submit</input>
+    <input type="submit" class="btn btn-primary" value="Sign Up">
 </form>
 {% endblock %}

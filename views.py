@@ -19,6 +19,7 @@ def signup():
     elif request.method == "POST":
         fn = request.form["fn"]
         ln = request.form["ln"]
+        age = int(request.form["age"])
         email = request.form["email"]
         username = request.form["uname"]
         password1 = request.form["pw"]
