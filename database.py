@@ -30,7 +30,9 @@ def create_user(username, first_name, last_name, email, age, password1, password
         elif user_taken:
             raise errors.UserTakenError(user_taken)
 
-        elif 
+        elif password1 != password2:
+            raise errors.PasswordsDoNotMatchError('Your passwords must match')
+
         collection.insert_one({
             "username": username,
             "first_name":first_name,
