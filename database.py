@@ -2,6 +2,7 @@ import pymongo
 import os, sys
 import errors
 import settings
+import encryption
 
 connectionUri = os.environ.get('chatreMongoConnectionUri')
 cluster = pymongo.MongoClient(connectionUri)
@@ -39,7 +40,7 @@ def create_user(username, first_name, last_name, email, age, password1, password
             "last_name":last_name,
             "email":email,
             "age":age,
-            "password": password1,
+            "password": encryption.encrypt(password1),
         })
 
         return 'User created successfully!'
