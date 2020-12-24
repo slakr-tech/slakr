@@ -1,11 +1,11 @@
 from views import app
-from settings import Run
+from settings import *
 
-run_app = Run()
+app.config["SECRET_KEY"] = 'DEV'
 
 if __name__ == '__main__':
     app.run(
-        host = run_app.host,
-        port = run_app.getPort(),
-        debug = run_app.debug
+        host = Run["HOST"],
+        port = Run["PORT"],
+        debug = Run["DEBUG"]
         )

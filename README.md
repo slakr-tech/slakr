@@ -10,14 +10,14 @@ Run App:
 python __init__.py
 ```
 \
-To change the host, change the following variable in settings.py:
+To change the host, change the following value for the "HOST" key in Run in settings.py:
 ```python
-self.host = '0.0.0.0'
+"HOST": '0.0.0.0'
 ```
 \
-To turn off debug mode, change the following variable in settings.py
+To turn off debug mode, change the following value for the "DEBUG" key in Run in settings.py:
 ```python
-self.debug = False
+"DEBUG": False
 ```
 \
 Learn Flask:
