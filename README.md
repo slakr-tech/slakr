@@ -1,3 +1,5 @@
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/slakr-tech/chatre)
+
 <h1>CHATRE</h1>
 
 Install Dependencies:

@@ -1,6 +1,5 @@
 import pymongo
 import os, sys
-import errors
 import settings
 import encryption
 
@@ -19,27 +18,55 @@ def is_user_taken(username, email):
     else:
         return False
 
+def authenticate(username, password):
+    user_taken = is_user_taken(username, username)
+    if not user_taken:
+        return False
+    
+    elif user_taken == 'Username Taken':
+        u = 'username'
+
+    elif user_taken == 'Email Taken':
+        u = 'email'
+
+    user = collection.find_one({ u: username })
+
+    if password == encryption.decrypt(user['password']):
+        return user
+    
+    return False
+    
 
 def create_user(username, first_name, last_name, email, age, password1, password2):
     minimum_age = settings.Rules["MINIMUM_AGE"]
     user_taken = is_user_taken(username, email)
 
-    if age < minimum_age:
-        raise errors.AgeError(age)
-    
+    if not(age < minimum_age or user_taken or password1 != password2):
+        collection.insert_one({
+            "username": username,
+            "first_name":first_name,
+            "last_name":last_name,
+            "email":email,
+            "age":age,
+            "password": encryption.encrypt(password1),
+            "email_confirmed": False
+        })
+        if collection.find_one({'username':username}):
+            return 'User created successfully!'
+        else:
+            return settings.Syntax["UNKNOWN_ERROR_TRY_AGAIN"]
+
+    elif age < minimum_age:
+        return "Users must be at least 13 years of age"
+
     elif user_taken:
-        raise errors.UserTakenError(user_taken)
+        return user_taken
 
     elif password1 != password2:
-        raise errors.PasswordsDoNotMatchError('Your passwords must match')
+        return "Your passwords must match"
+    
+    elif '@' in username:
+        return "username cannot contain an @ symbol"
 
-    collection.insert_one({
-        "username": username,
-        "first_name":first_name,
-        "last_name":last_name,
-        "email":email,
-        "age":age,
-        "password": encryption.encrypt(password1),
-    })
-
-    return 'User created successfully!'
+    else:
+        return settings.Syntax["UNKNOWN_ERROR_TRY_AGAIN"]

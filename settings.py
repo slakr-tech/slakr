@@ -22,3 +22,9 @@ Run = {
 Rules = {
     "MINIMUM_AGE":13
 }
+
+Syntax = {
+    "SEP": ''.join(['-' for _ in range(50)]),
+    "UNKNOWN_ERROR_TRY_AGAIN": 'An unknown error occured, please try again.',
+    "UNKNOWN_ERROR": 'An unknown error occured.'
+}
