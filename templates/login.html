@@ -16,8 +16,10 @@
     </div>
     <div class="mb-3 form-check">
         <input name="session" type="checkbox" class="form-check-input" id="session">
-        <label class="form-check-label" for="session">Keep Me Logged In</label>
+        <label class="form-check-label" for="session">Keep me logged in. You must check this to log in.</label>
     </div>
-    <input type="submit" class="btn btn-primary" value="Log In">
+    <input id="loginBtn" type="submit" class="btn btn-primary" value="Log In">
 </form>
+
+<script src="{{ url_for('static', filename='main.js') }}?u={{ last_updated }}" defer></script>
 {% endblock %}
