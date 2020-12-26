@@ -5,9 +5,7 @@ encryption_key = os.environ.get('chatreEncryptionKey')
 
 def encrypt(string, bts=True):
     if not os.environ.get('chatreEncryptionKey'):
-        print('setting encryption key...')
-        os.environ["chatreEncryptionKey"] = Fernet.generate_key().decode()
-        encryption_key = os.environ["chatreEncryptionKey"].encode()
+        print('You must create an encryption key')
 
     if type(string) == type('a'):
         encoded = string.encode()
@@ -23,7 +21,10 @@ def encrypt(string, bts=True):
         return f.encrypt(encoded).decode()
 
 
-def decrypt(string, bts=True):
+def decrypt(string, bts=False):
+    if not os.environ.get('chatreEncryptionKey'):
+        print('You must create an encryption key')
+
     encryption_key = os.environ.get('chatreEncryptionKey').encode()
     if type(string) == type('a'):
         encoded = string.encode()

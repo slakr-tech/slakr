@@ -3,5 +3,15 @@
 {% block title %} Hello, World! {% endblock %}
 
 {% block content %}
+
+{% if signed_in %}
+
+<h1>Hello {{ user.first_name.title() }}</h1>
+
+{% else %}
+
 <h1>Hello!</h1>
+
+{% endif %}
+
 {% endblock %}

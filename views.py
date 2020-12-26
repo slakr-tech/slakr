@@ -1,20 +1,57 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
+from user import User
 import database
+import encryption
 
 app = Flask(__name__)
 
+def auth():
+    if session.get("USERNAME") and session.get("PASSWORD"):
+        auth = database.authenticate(session["USERNAME"], session["PASSWORD"])
+        signed_in = bool(auth)
+        user = ''
+        
+        if signed_in:
+            user = User(auth['username'], auth['first_name'], auth['last_name'], auth['email'])
+        
+        return [signed_in, user]
+    return [False, '']
+
 @app.route('/')
 def index():
-    return render_template("index.html")
+    auth_status = auth()
+    print(auth_status)
+    return render_template("index.html", signed_in=auth_status[0], user=auth_status[1])
 
-@app.route('/signin')
+
+@app.route('/signin', methods=["GET", "POST"])
 def signin():
-    return "This page has not been created yet"
+    auth_status = auth()
+    if request.method == "GET":
+        if not auth_status[0]:
+            return render_template('login.html', signed_in=auth_status[0], user=auth_status[1])
+        else:
+            return redirect(url_for('index'))
+    
+    if request.method == "POST":
+        if database.authenticate(request.form["un"], request.form["pw"]):
+            if request.form.get('session'):
+                session["USERNAME"] = request.form["un"]
+                session["PASSWORD"] = request.form["pw"]
+            flash("successfully logged in")
+        else:
+            flash("wrong username or password")
+        return redirect(url_for('index'))
+    
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
+    auth_status = auth()
     if request.method == "GET":
-        return render_template('signup.html')
+        if not auth_status[0]:
+            return render_template('signup.html', signed_in=auth_status[0], user=auth_status[1])
+        else:
+            return redirect(url_for('index'))
     
     elif request.method == "POST":
         fn = request.form["fn"]
@@ -29,3 +66,9 @@ def signup():
         create_user = database.create_user(username,fn,ln,email,age,password1,password2)
         flash(create_user)
         return redirect(url_for('index'))
+
+@app.route('/signout')
+def signout():
+    session.pop('USERNAME', None)
+    session.pop('PASSWORD', None)
+    return redirect(url_for('index'))
