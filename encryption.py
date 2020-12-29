@@ -7,7 +7,7 @@ def encrypt(string, bts=True):
     if not os.environ.get('chatreEncryptionKey'):
         print('You must create an encryption key')
 
-    if type(string) == type('a'):
+    if type(string) == str:
         encoded = string.encode()
     else:
         encoded = string
@@ -26,7 +26,7 @@ def decrypt(string, bts=False):
         print('You must create an encryption key')
 
     encryption_key = os.environ.get('chatreEncryptionKey').encode()
-    if type(string) == type('a'):
+    if type(string) == str:
         encoded = string.encode()
     else:
         encoded = string
