@@ -60,7 +60,7 @@ def create_user(username, first_name, last_name, email, age, password1, password
             "email_confirmed": False
         })
         if collection.find_one({'username':username}):
-            return 'User created successfully!'
+            return 'User created successfully! Please Sign in to your newly created chatre account!'
         else:
             return settings.Syntax["UNKNOWN_ERROR_TRY_AGAIN"]
 
@@ -88,3 +88,13 @@ def get_user(username):
         return User(user['_id'], user['username'], user['first_name'], user['last_name'], user['email'])
     else:
         return False
+
+def search_users(search, search_by="username"):
+    # { "address": { "$regex": "^S" } }
+    query = { search_by: { "$regex":search } }
+    search_results = collection.find(query)
+    results = []
+    for result in search_results:
+        results.append(User(result['_id'], result['username'], result['first_name'], result['last_name'], result['email']))
+
+    return results

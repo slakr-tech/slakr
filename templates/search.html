@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %} Search results for {{ user_search }} {% endblock %}
+
+{% block content %}
+
+{% for result in results %}
+
+<div class="userResult">
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{ result.username }}</h5>
+            <p class="card-text">{{ result.fullname.title() }}</p>
+            <a href="{{ url_for('user.specific_user_page', username=result.username) }}" class="btn btn-primary">{{ result.first_name.title() }}'s Page</a>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+
+{% endblock %}
