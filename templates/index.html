@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
 
-{% block title %} Hello, World! {% endblock %}
+{% block title %} CHATRE {% endblock %}
 
 {% block content %}
 
 {% if signed_in %}
 
-<h1>Hello {{ user.first_name.title() }}</h1>
+<h1>Welcome to Chatre!</h1>
+<h2>Hello {{ user.first_name.title() }}</h2>
 
 {% else %}
 
-<h1>Hello!</h1>
+<h1>CHATRE!</h1>
 
 {% endif %}
 

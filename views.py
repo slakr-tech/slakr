@@ -38,10 +38,16 @@ def signin():
             if request.form.get('session'):
                 session["USERNAME"] = request.form["un"]
                 session["PASSWORD"] = request.form["pw"]
+            
+            else:
+                flash('You must check \"keep me logged in\" to sign in')
+                return redirect(url_for('signin'))
+
             flash("successfully logged in")
         else:
             flash("wrong username or password")
-        return redirect(url_for('index'))
+            return redirect(url_for('signin'))
+        return redirect(url_for('signin'))
     
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -51,7 +57,7 @@ def signup():
         if not auth_status[0]:
             return render_template('signup.html', signed_in=auth_status[0], user=auth_status[1])
         else:
-            return redirect(url_for('index'))
+            return redirect(url_for('signup'))
     
     elif request.method == "POST":
         fn = request.form["fn"]

@@ -28,7 +28,7 @@ def authenticate(username, password):
 
     elif user_taken == 'Email Taken':
         u = 'email'
-
+        
     user = collection.find_one({ u: username })
 
     if password == encryption.decrypt(user['password']):
@@ -46,7 +46,7 @@ def create_user(username, first_name, last_name, email, age, password1, password
             "username": username,
             "first_name":first_name,
             "last_name":last_name,
-            "email":email,
+            "email":email.lower(),
             "age":age,
             "password": encryption.encrypt(password1),
             "email_confirmed": False
