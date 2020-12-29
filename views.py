@@ -4,7 +4,11 @@ import database
 import encryption
 import settings
 
+# BLUEPRINTS
+from blueprints.user import users as user_urls
+
 app = Flask(__name__)
+app.register_blueprint(user_urls, url_prefix="/users")
 
 def auth():
     if session.get("USERNAME") and session.get("PASSWORD"):
