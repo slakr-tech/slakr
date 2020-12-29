@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 from user import User
 import database
 import encryption
+import settings
 
 app = Flask(__name__)
 
@@ -12,7 +13,10 @@ def auth():
         user = ''
         
         if signed_in:
-            user = User(auth['username'], auth['first_name'], auth['last_name'], auth['email'])
+            user = User(auth['_id'], auth['username'], auth['first_name'], auth['last_name'], auth['email'])
+            print(settings.Syntax['SEP'])
+            print(str(auth['_id']))
+            print(settings.Syntax['SEP'])
         
         return [signed_in, user]
     return [False, '']
