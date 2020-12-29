@@ -5,4 +5,5 @@ class User:
         self.first_name      = first_name
         self.last_name       = last_name
         self.email           = email
+        self.fullname        = self.first_name + ' ' + self.last_name
         self.email_confirmed = False

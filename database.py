@@ -3,6 +3,7 @@ import os, sys
 import settings
 import encryption
 import re
+from user import User
 
 connectionUri = os.environ.get('chatreMongoConnectionUri')
 cluster = pymongo.MongoClient(connectionUri)
@@ -80,3 +81,10 @@ def create_user(username, first_name, last_name, email, age, password1, password
 
     else:
         return settings.Syntax["UNKNOWN_ERROR_TRY_AGAIN"]
+
+def get_user(username):
+    user = collection.find_one({"username":username})
+    if user:
+        return User(user['_id'], user['username'], user['first_name'], user['last_name'], user['email'])
+    else:
+        return False
