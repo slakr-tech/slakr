@@ -1,11 +1,11 @@
 from flask import session
 from user import User
-import database
+import database as db
 import settings
 
 def auth():
     if session.get("USERNAME") and session.get("PASSWORD"):
-        auth = database.authenticate(session["USERNAME"], session["PASSWORD"])
+        auth = db.authenticate(session["USERNAME"], session["PASSWORD"])
         signed_in = bool(auth)
         user = ''
         
