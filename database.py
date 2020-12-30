@@ -1,7 +1,7 @@
 import pymongo
 import os, sys
 import settings
-import encryption
+import encryption as enc
 import re
 from user import User
 
@@ -33,7 +33,7 @@ def authenticate(username, password):
 
     user = collection.find_one({ u: username })
 
-    if password == encryption.decrypt(user['password']):
+    if password == enc.decrypt(user['password']):
         return user
     
     return False
@@ -56,7 +56,7 @@ def create_user(username, first_name, last_name, email, age, password1, password
             "last_name":last_name,
             "email":email.lower(),
             "age":age,
-            "password": encryption.encrypt(password1),
+            "password": enc.encrypt(password1),
             "email_confirmed": False
         })
         if collection.find_one({'username':username}):
