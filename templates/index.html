@@ -16,6 +16,25 @@
     <input type="submit" value="Post">
 </form>
 
+<br>
+
+{% for post in user.posts %}
+
+    <div class="card text-center">
+    <div class="card-header">
+        Post
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">{{ post.content }}</h5>
+    </div>
+    <div class="card-footer text-muted">
+        Posted {{ user.time_since_post(post['date']) }} days ago
+    </div>
+    </div>
+    <br>
+
+{% endfor %}
+
 {% else %}
 
 <h1>CHATRE!</h1>

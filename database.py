@@ -4,6 +4,7 @@ import settings
 import encryption as enc
 import re
 from user import User
+from datetime import datetime, timedelta
 
 connectionUri = os.environ.get('chatreMongoConnectionUri')
 cluster = pymongo.MongoClient(connectionUri)
@@ -101,7 +102,12 @@ def search_users(search, search_by="username"):
     return results
 
 def add_post(post, id):
+    date = datetime.now().timestamp()
     collection.update(
         {"_id":id},
-        {"$push": { "posts": post } }
+        {"$push": { "posts": {
+            "_id": int(date * 1000),
+            "content": post,
+            "date": int(date)
+        } } }
     )
