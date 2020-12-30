@@ -5,6 +5,9 @@
   <h2>Just a social app</h2>
 </center>
 
+<br>
+<br>
+
 Install Dependencies:
 ```bash
 pip install -r requirements.txt
