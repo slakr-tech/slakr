@@ -1,6 +1,9 @@
 [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/slakr-tech/chatre)
 
-<h1>CHATRE</h1>
+<center>
+  <h1>CHATRE</h1>
+  <h2>Just a social app</h2>
+</center>
 
 Install Dependencies:
 ```bash
