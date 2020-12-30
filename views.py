@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from user import User
-import database
-import encryption
+import database as db
+import encryption as enc
 import settings
 from auth import auth
 
@@ -27,7 +27,7 @@ def signin():
             return redirect(url_for('index'))
     
     if request.method == "POST":
-        if database.authenticate(request.form["un"], request.form["pw"]):
+        if db.authenticate(request.form["un"], request.form["pw"]):
             if request.form.get('session'):
                 session["USERNAME"] = request.form["un"]
                 session["PASSWORD"] = request.form["pw"]
@@ -62,7 +62,7 @@ def signup():
         password2 = request.form["pwc"]
 
         
-        create_user = database.create_user(username,fn,ln,email,age,password1,password2)
+        create_user = db.create_user(username,fn,ln,email,age,password1,password2)
         flash(create_user)
         return redirect(url_for('index'))
 
