@@ -7,9 +7,11 @@ from auth import auth
 
 # BLUEPRINTS
 from blueprints.other_user import other_users
+from blueprints.posts import posts
 
 app = Flask(__name__)
 app.register_blueprint(other_users, url_prefix="/users")
+app.register_blueprint(posts, url_prefix="/post")
 
 @app.route('/')
 def index():

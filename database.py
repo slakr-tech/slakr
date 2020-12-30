@@ -57,7 +57,8 @@ def create_user(username, first_name, last_name, email, age, password1, password
             "email":email.lower(),
             "age":age,
             "password": enc.encrypt(password1),
-            "email_confirmed": False
+            "email_confirmed": False,
+            "posts": []
         })
         if collection.find_one({'username':username}):
             return 'User created successfully! Please Sign in to your newly created chatre account!'
@@ -85,7 +86,7 @@ def create_user(username, first_name, last_name, email, age, password1, password
 def get_user(username):
     user = collection.find_one({"username":username})
     if user:
-        return User(user['_id'], user['username'], user['first_name'], user['last_name'], user['email'])
+        return User(user['_id'], user['username'], user['first_name'], user['last_name'], user['email'], user['posts'])
     else:
         return False
 
@@ -95,6 +96,12 @@ def search_users(search, search_by="username"):
     search_results = collection.find(query)
     results = []
     for result in search_results:
-        results.append(User(result['_id'], result['username'], result['first_name'], result['last_name'], result['email']))
+        results.append(User(result['_id'], result['username'], result['first_name'], result['last_name'], result['email'], result['posts']))
 
     return results
+
+def add_post(post, id):
+    collection.update(
+        {"_id":id},
+        {"$push": { "posts": post } }
+    )

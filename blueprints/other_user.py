@@ -3,13 +3,9 @@ import sys
 sys.path.append("..")
 import database as db
 from auth import auth
-import user
+from user import User
 
 other_users = Blueprint("user", __name__, static_folder='static', template_folder='templates')
-
-@other_users.route('/')
-def general_user_page():
-    return "User page"
 
 @other_users.route('/profile/<username>')
 def specific_user_page(username):
@@ -36,4 +32,5 @@ def index_page_redirect():
     return redirect(url_for('index'))
 
 other_users.add_url_rule('/profile', 'index_page_redirect', index_page_redirect)
+other_users.add_url_rule('/', 'index_page_redirect', index_page_redirect)
 

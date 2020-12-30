@@ -9,6 +9,13 @@
 <h1>Welcome to Chatre!</h1>
 <h2>Hello {{ user.first_name.title() }}</h2>
 
+<br>
+
+<form action="{{ url_for('posts.create_post') }}" method="get">
+    <textarea name="p" class="form-control" placeholder="Write a post here" id="floatingTextarea2" style="height: 100px"></textarea>
+    <input type="submit" value="Post">
+</form>
+
 {% else %}
 
 <h1>CHATRE!</h1>
