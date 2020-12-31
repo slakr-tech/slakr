@@ -4,6 +4,7 @@ import settings
 import encryption as enc
 import re
 from user import User
+from datetime import datetime, timedelta
 
 connectionUri = os.environ.get('chatreMongoConnectionUri')
 cluster = pymongo.MongoClient(connectionUri)
@@ -57,7 +58,8 @@ def create_user(username, first_name, last_name, email, age, password1, password
             "email":email.lower(),
             "age":age,
             "password": enc.encrypt(password1),
-            "email_confirmed": False
+            "email_confirmed": False,
+            "posts": []
         })
         if collection.find_one({'username':username}):
             return 'User created successfully! Please Sign in to your newly created chatre account!'
@@ -85,16 +87,41 @@ def create_user(username, first_name, last_name, email, age, password1, password
 def get_user(username):
     user = collection.find_one({"username":username})
     if user:
-        return User(user['_id'], user['username'], user['first_name'], user['last_name'], user['email'])
+        return User(user['_id'], user['username'], user['first_name'], user['last_name'], user['email'], user['posts'])
     else:
         return False
 
 def search_users(search, search_by="username"):
-    # { "address": { "$regex": "^S" } }
     query = { search_by: { "$regex":search } }
     search_results = collection.find(query)
     results = []
     for result in search_results:
-        results.append(User(result['_id'], result['username'], result['first_name'], result['last_name'], result['email']))
+        results.append(User(result['_id'], result['username'], result['first_name'], result['last_name'], result['email'], result['posts']))
 
     return results
+
+def add_post(post, id):
+    date = datetime.now().timestamp()
+    collection.update(
+        {"_id":id},
+        {"$push": { "posts": {
+            "_id": int(date * 1000),
+            "content": post,
+            "date": int(date)
+        } } }
+    )
+
+def remove_post(user_id, post_id):
+    user = collection.find_one({"_id":user_id})
+    posts = user['posts']
+    new_posts = []
+
+    for post in range(len(posts)):
+        if str(posts[post]['_id']) != str(post_id):
+            new_posts.append(posts[post])
+
+    collection.update(
+        {"_id":user_id},
+        {"$set": { "posts":  new_posts}}
+    )
+    

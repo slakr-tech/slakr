@@ -9,6 +9,33 @@
 <h1>Welcome to Chatre!</h1>
 <h2>Hello {{ user.first_name.title() }}</h2>
 
+<br>
+
+<form action="{{ url_for('posts.create_post') }}" method="get">
+    <textarea name="p" class="form-control" placeholder="Write a post here" id="floatingTextarea2" style="height: 100px"></textarea>
+    <input type="submit" value="Post">
+</form>
+
+<br>
+
+{% for post in user.posts %}
+
+    <div class="card text-center">
+    <div class="card-header">
+        Post
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">{{ post.content }}</h5>
+    </div>
+    <a href="{{ url_for('posts.delete_post', p=post._id, **request.args) }}" class="btn btn-danger">Delete Post</a>
+    <div class="card-footer text-muted">
+        Posted {{ user.time_since_post(post.date) }} days ago
+    </div>
+    </div>
+    <br>
+
+{% endfor %}
+
 {% else %}
 
 <h1>CHATRE!</h1>

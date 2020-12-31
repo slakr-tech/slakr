@@ -10,7 +10,7 @@ def auth():
         user = ''
         
         if signed_in:
-            user = User(auth['_id'], auth['username'], auth['first_name'], auth['last_name'], auth['email'])
+            user = User(auth['_id'], auth['username'], auth['first_name'], auth['last_name'], auth['email'], auth['posts'])
             print(settings.Syntax['SEP'])
             print(str(auth['_id']))
             print(settings.Syntax['SEP'])
