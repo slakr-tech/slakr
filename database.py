@@ -92,7 +92,6 @@ def get_user(username):
         return False
 
 def search_users(search, search_by="username"):
-    # { "address": { "$regex": "^S" } }
     query = { search_by: { "$regex":search } }
     search_results = collection.find(query)
     results = []
@@ -111,3 +110,18 @@ def add_post(post, id):
             "date": int(date)
         } } }
     )
+
+def remove_post(user_id, post_id):
+    user = collection.find_one({"_id":user_id})
+    posts = user['posts']
+    new_posts = []
+
+    for post in range(len(posts)):
+        if str(posts[post]['_id']) != str(post_id):
+            new_posts.append(posts[post])
+
+    collection.update(
+        {"_id":user_id},
+        {"$set": { "posts":  new_posts}}
+    )
+    
