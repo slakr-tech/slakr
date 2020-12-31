@@ -12,6 +12,23 @@ class User:
         self.posts           = posts
 
     def time_since_post(self, time_posted, current_time = int(datetime.datetime.now().timestamp())):
-        #print((float(timestamp1)-float(timestamp2))/(60*60*24))
-        time_since_posted = current_time - time_posted
-        return int(time_since_posted/86400)
+        seconds_since_posted = current_time - time_posted
+        days_since_posted    = int(seconds_since_posted/86400)
+        hours_since_posted   = int(seconds_since_posted/3600)
+        minutes_since_posted = int(seconds_since_posted/60)
+
+        if days_since_posted:
+            return f"{days_since_posted} days"
+
+        elif hours_since_posted:
+            return f"{hours_since_posted} hours"
+
+        elif minutes_since_posted > 1:
+            return f"{minutes_since_posted} minutes"
+
+        elif minutes_since_posted == 1:
+            return f"{minutes_since_posted} minute"
+
+        else:
+            print('s', seconds_since_posted)
+            return "less than a minute"

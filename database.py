@@ -100,12 +100,13 @@ def search_users(search, search_by="username"):
 
     return results
 
-def add_post(post, id):
+def add_post(post, post_title, id):
     date = datetime.now().timestamp()
     collection.update(
         {"_id":id},
         {"$push": { "posts": {
             "_id": int(date * 1000),
+            "title": post_title,
             "content": post,
             "date": int(date)
         } } }

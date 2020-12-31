@@ -1,0 +1,8 @@
+.posts {
+      flex-wrap: wrap;
+      display: inline-flex; 
+      max-width: 1200px; 
+      -ms-flex-pack: distribute;
+      justify-content: flex-start;
+      margin: 40px auto;
+}

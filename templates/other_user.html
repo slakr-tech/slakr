@@ -1,23 +1,24 @@
 {% extends 'base.html' %}
 {% block title %} {{ other_user.username }} {% endblock %}
 
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='other-posts.css') }}?u={{ last_updated }}">
+{% endblock %}
+
 {% block content %}
 <h1>{{ other_user.fullname.title() }}'s Page</h1>
 
-{% for post in other_user.posts %}
-
-    <div class="card text-center">
-    <div class="card-header">
-        Post
+<div class="posts">
+{% for post in other_user.posts[::-1] %}
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <p class="card-text">{{ post.content }}</p>
+            <p class="card-text">Posted {{ other_user.time_since_post(post.date) }} ago</p>
+        </div>
     </div>
-    <div class="card-body">
-        <h5 class="card-title">{{ post.content }}</h5>
-    </div>
-    <div class="card-footer text-muted">
-        Posted {{ other_user.time_since_post(post.date) }} days ago
-    </div>
-    </div>
-    <br>
 
 {% endfor %}
+</div>
+
 {% endblock %}

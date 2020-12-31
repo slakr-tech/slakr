@@ -12,24 +12,28 @@
 <br>
 
 <form action="{{ url_for('posts.create_post') }}" method="get">
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="inputGroup-sizing-default">Title: </span>
+        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" maxlength="15" id="titleInput" name="t">
+    </div>
     <textarea name="p" class="form-control" placeholder="Write a post here" id="floatingTextarea2" style="height: 100px"></textarea>
     <input type="submit" value="Post">
 </form>
 
 <br>
 
-{% for post in user.posts %}
+{% for post in user.posts[::-1] %}
 
     <div class="card text-center">
     <div class="card-header">
-        Post
+        {{ post.title.upper() }}
     </div>
     <div class="card-body">
         <h5 class="card-title">{{ post.content }}</h5>
     </div>
     <a href="{{ url_for('posts.delete_post', p=post._id, **request.args) }}" class="btn btn-danger">Delete Post</a>
     <div class="card-footer text-muted">
-        Posted {{ user.time_since_post(post.date) }} days ago
+        Posted {{ user.time_since_post(post.date) }} ago
     </div>
     </div>
     <br>
