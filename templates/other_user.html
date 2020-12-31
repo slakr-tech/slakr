@@ -2,5 +2,22 @@
 {% block title %} {{ other_user.username }} {% endblock %}
 
 {% block content %}
-<p>{{ other_user.fullname.title() }}'s Page</p>
+<h1>{{ other_user.fullname.title() }}'s Page</h1>
+
+{% for post in other_user.posts %}
+
+    <div class="card text-center">
+    <div class="card-header">
+        Post
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">{{ post.content }}</h5>
+    </div>
+    <div class="card-footer text-muted">
+        Posted {{ other_user.time_since_post(post.date) }} days ago
+    </div>
+    </div>
+    <br>
+
+{% endfor %}
 {% endblock %}
