@@ -26,14 +26,14 @@
 
     <div class="card text-center">
     <div class="card-header">
-        {{ post.title }}
+        {{ post.title.upper() }}
     </div>
     <div class="card-body">
         <h5 class="card-title">{{ post.content }}</h5>
     </div>
     <a href="{{ url_for('posts.delete_post', p=post._id, **request.args) }}" class="btn btn-danger">Delete Post</a>
     <div class="card-footer text-muted">
-        Posted {{ user.time_since_post(post.date) }} days ago
+        Posted {{ user.time_since_post(post.date) }} ago
     </div>
     </div>
     <br>
