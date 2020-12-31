@@ -10,12 +10,15 @@ posts = Blueprint("posts", __name__, static_folder='static', template_folder='te
 @posts.route('/create')
 def create_post():
     auth_status = auth()
-    post = request.args.get('p')
+    post       = request.args.get('p')
+    post_title = request.args.get('t')
     print('auth status 1:', auth_status[1].id)
     for i in auth_status:
         print(auth_status)
     if post and auth_status[0]:
-        db.add_post(post, auth_status[1].id)
+        if not post_title:
+            post_title = 'Post'
+        db.add_post(post, post_title, auth_status[1].id)
         flash('post created')
 
     elif not post:
