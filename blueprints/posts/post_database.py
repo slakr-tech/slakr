@@ -22,7 +22,6 @@ def get_posts(user_id):
 def add_post(post, post_title, user_id):
     date = datetime.now().timestamp()
     post_collection.insert_one({
-        "_id":ObjectId(),
         "user_id":user_id,
         "title":post_title,
         "content":post,

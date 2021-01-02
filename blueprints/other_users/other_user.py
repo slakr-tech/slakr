@@ -1,11 +1,12 @@
 from flask import Blueprint, render_template, session, redirect, url_for, request
 import sys
-sys.path.append("..")
+sys.path.append("../..")
 import user_database as db
 from auth import auth
+from blueprints.follow.follow_database import is_following
 from user import User
 
-other_users = Blueprint("user", __name__, static_folder='static', template_folder='templates')
+other_users = Blueprint("other_user", __name__, static_folder='static', template_folder='templates')
 
 @other_users.route('/profile/<username>')
 def specific_user_page(username):
@@ -13,7 +14,8 @@ def specific_user_page(username):
     other_user = db.get_user(username)
     
     if other_user:
-        return render_template('other_user.html', signed_in=auth_status[0], user=auth_status[1], other_user=other_user)
+        return render_template('other_user.html', signed_in=auth_status[0], user=auth_status[1],
+        other_user=other_user, follows=is_following(auth_status[1].id, other_user.id))
     return "could not find page for: " + username
 
 @other_users.route('/search')

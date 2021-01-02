@@ -8,6 +8,12 @@
 {% block content %}
 <h1>{{ other_user.fullname.title() }}'s Page</h1>
 
+{% if not follows %}
+<a href="{{ url_for('follow.follow_user', following=other_user.id, user=other_user.username, **request.args) }}">Follow</a>
+{% else %}
+<a href="{{ url_for('follow.unfollow_user', following=other_user.id, user=other_user.username, **request.args) }}">Unfollow</a>
+{% endif %}
+
 <div class="posts">
 {% for post in other_user.posts[::-1] %}
     <div class="card" style="width: 18rem;">
