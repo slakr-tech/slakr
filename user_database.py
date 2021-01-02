@@ -9,13 +9,13 @@ from datetime import datetime, timedelta
 connectionUri = os.environ.get('chatreMongoConnectionUri')
 cluster = pymongo.MongoClient(connectionUri)
 db = cluster["users"]
-collection = db["users"]
+user_collection = db["users"]
 
 def is_user_taken(username, email):
-    if collection.find({ "username":username }).count():
+    if user_collection.find({ "username":username }).count():
         return 'Username Taken'
     
-    elif collection.find({ 'email':email }).count():
+    elif user_collection.find({ 'email':email }).count():
         return 'Email Taken'
 
     else:
@@ -32,7 +32,7 @@ def authenticate(username, password):
     elif user_taken == 'Email Taken':
         u = 'email'
 
-    user = collection.find_one({ u: username })
+    user = user_collection.find_one({ u: username })
 
     if password == enc.decrypt(user['password']):
         return user
@@ -51,17 +51,16 @@ def create_user(username, first_name, last_name, email, age, password1, password
 
 
     if not(age_rule or user_taken or password_match_rule or space_in_username_rule or special_char_in_username_rule):
-        collection.insert_one({
+        user_collection.insert_one({
             "username": username,
             "first_name":first_name,
             "last_name":last_name,
             "email":email.lower(),
             "age":age,
             "password": enc.encrypt(password1),
-            "email_confirmed": False,
-            "posts": []
+            "email_confirmed": False
         })
-        if collection.find_one({'username':username}):
+        if user_collection.find_one({'username':username}):
             return 'User created successfully! Please Sign in to your newly created chatre account!'
         else:
             return settings.Syntax["UNKNOWN_ERROR_TRY_AGAIN"]
@@ -85,44 +84,17 @@ def create_user(username, first_name, last_name, email, age, password1, password
         return settings.Syntax["UNKNOWN_ERROR_TRY_AGAIN"]
 
 def get_user(username):
-    user = collection.find_one({"username":username})
+    user = user_collection.find_one({"username":username})
     if user:
-        return User(user['_id'], user['username'], user['first_name'], user['last_name'], user['email'], user['posts'])
+        return User(user['_id'], user['username'], user['first_name'], user['last_name'], user['email'])
     else:
         return False
 
 def search_users(search, search_by="username"):
     query = { search_by: { "$regex":search } }
-    search_results = collection.find(query)
+    search_results = user_collection.find(query)
     results = []
     for result in search_results:
-        results.append(User(result['_id'], result['username'], result['first_name'], result['last_name'], result['email'], result['posts']))
+        results.append(User(result['_id'], result['username'], result['first_name'], result['last_name'], result['email']))
 
     return results
-
-def add_post(post, post_title, id):
-    date = datetime.now().timestamp()
-    collection.update(
-        {"_id":id},
-        {"$push": { "posts": {
-            "_id": int(date * 1000),
-            "title": post_title,
-            "content": post,
-            "date": int(date)
-        } } }
-    )
-
-def remove_post(user_id, post_id):
-    user = collection.find_one({"_id":user_id})
-    posts = user['posts']
-    new_posts = []
-
-    for post in range(len(posts)):
-        if str(posts[post]['_id']) != str(post_id):
-            new_posts.append(posts[post])
-
-    collection.update(
-        {"_id":user_id},
-        {"$set": { "posts":  new_posts}}
-    )
-    

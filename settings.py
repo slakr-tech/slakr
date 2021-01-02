@@ -28,3 +28,8 @@ Syntax = {
     "UNKNOWN_ERROR_TRY_AGAIN": 'An unknown error occured, please try again.',
     "UNKNOWN_ERROR": 'An unknown error occured.'
 }
+
+def debug(string):
+    print(Syntax["SEP"])
+    print(string)
+    print(Syntax["SEP"])

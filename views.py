@@ -1,13 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from user import User
-import database as db
+import user_database as db
 import encryption as enc
 import settings
 from auth import auth
 
 # BLUEPRINTS
-from blueprints.other_user import other_users
-from blueprints.posts import posts
+from blueprints.other_users.other_user import other_users
+from blueprints.posts.posts import posts
 
 app = Flask(__name__)
 app.register_blueprint(other_users, url_prefix="/users")

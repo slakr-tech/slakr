@@ -1,6 +1,6 @@
 from flask import session
 from user import User
-import database as db
+import user_database as db
 import settings
 
 def auth():
@@ -10,7 +10,7 @@ def auth():
         user = ''
         
         if signed_in:
-            user = User(auth['_id'], auth['username'], auth['first_name'], auth['last_name'], auth['email'], auth['posts'])
+            user = User(auth['_id'], auth['username'], auth['first_name'], auth['last_name'], auth['email'])
             print(settings.Syntax['SEP'])
             print(str(auth['_id']))
             print(settings.Syntax['SEP'])

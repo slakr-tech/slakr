@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, session, redirect, url_for, request
 import sys
 sys.path.append("..")
-import database as db
+import user_database as db
 from auth import auth
 from user import User
 

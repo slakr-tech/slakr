@@ -1,7 +1,8 @@
 import datetime
+import blueprints.posts.post_database as pdb
 
 class User:
-    def __init__(self, id, username, first_name, last_name, email, posts):
+    def __init__(self, id, username, first_name, last_name, email):
         self.id              = id
         self.username        = username
         self.first_name      = first_name
@@ -9,7 +10,7 @@ class User:
         self.email           = email
         self.fullname        = self.first_name + ' ' + self.last_name
         self.email_confirmed = False
-        self.posts           = posts
+        self.posts           = pdb.get_posts(self.id)
 
     def time_since_post(self, time_posted, current_time = int(datetime.datetime.now().timestamp())):
         seconds_since_posted = current_time - time_posted

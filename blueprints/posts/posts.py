@@ -1,9 +1,11 @@
 from flask import Blueprint, render_template, session, redirect, url_for, request, flash
 import sys
-sys.path.append("..")
-import database as db
+sys.path.append("../..")
+import user_database as db
+import blueprints.posts.post_database as pdb
 from auth import auth
 from user import User
+import settings
 
 posts = Blueprint("posts", __name__, static_folder='static', template_folder='templates')
 
@@ -18,7 +20,7 @@ def create_post():
     if post and auth_status[0]:
         if not post_title:
             post_title = 'Post'
-        db.add_post(post, post_title, auth_status[1].id)
+        pdb.add_post(post, post_title, auth_status[1].id)
         flash('post created')
 
     elif not post:
@@ -33,9 +35,10 @@ def create_post():
 def delete_post():
     auth_status = auth()
     post_id = request.args.get('p')
-
+    print(pdb.post_exists(auth_status[1].id, post_id))
     if post_id:
-        db.remove_post(auth_status[1].id, post_id)
+        settings.debug('here')
+        pdb.remove_post(auth_status[1].id, post_id)
         flash('post removed')
 
     elif not post_id:
