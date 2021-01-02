@@ -24,14 +24,19 @@ def unfollow(follower, following):
     })
 
 def is_following(follower, following):
-    print('\nis following:')
-    print(follower)
-    print(following)
-    print(type(follower))
-    print(type(following))
     follow = follow_collection.find({
         "follower":ObjectId(follower),
         "following":ObjectId(following)
     }).count()
 
     return follow
+
+def get_followers(following, count=True):
+    query = {"following":following}
+    query_results = follow_collection.find(query)
+
+    if count:
+        return query_results.count()
+
+    else:
+        return query_results
