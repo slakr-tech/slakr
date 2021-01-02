@@ -1,16 +1,19 @@
 import datetime
-import blueprints.posts.post_database as pdb
+
+import blueprints.posts.post_database    as pdb
+import blueprints.follow.follow_database as fdb
 
 class User:
     def __init__(self, id, username, first_name, last_name, email):
-        self.id              = id
-        self.username        = username
-        self.first_name      = first_name
-        self.last_name       = last_name
-        self.email           = email
-        self.fullname        = self.first_name + ' ' + self.last_name
-        self.email_confirmed = False
-        self.posts           = pdb.get_posts(self.id)
+        self.id                  = id
+        self.username            = username
+        self.first_name          = first_name
+        self.last_name           = last_name
+        self.email               = email
+        self.fullname            = self.first_name + ' ' + self.last_name
+        self.email_confirmed     = False
+        self.posts               = pdb.get_posts(self.id)
+        self.number_of_followers = fdb.count_followers(self.id)        
 
     def time_since_post(self, time_posted, current_time = int(datetime.datetime.now().timestamp())):
         seconds_since_posted = current_time - time_posted

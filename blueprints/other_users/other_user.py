@@ -12,7 +12,7 @@ other_users = Blueprint("other_user", __name__, static_folder='static', template
 def specific_user_page(username):
     auth_status = auth()
     other_user = db.get_user(username)
-    
+
     if other_user:
         return render_template('other_user.html', signed_in=auth_status[0], user=auth_status[1],
         other_user=other_user, follows=is_following(auth_status[1].id, other_user.id))

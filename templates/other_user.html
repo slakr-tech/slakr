@@ -9,10 +9,23 @@
 <h1>{{ other_user.fullname.title() }}'s Page</h1>
 
 {% if not follows %}
-<a href="{{ url_for('follow.follow_user', following=other_user.id, user=other_user.username, **request.args) }}">Follow</a>
+<a class="btn btn-primary btn-block" href="{{ url_for('follow.follow_user', following=other_user.id, user=other_user.username, **request.args) }}">
+    Follow
+</a>
+
 {% else %}
-<a href="{{ url_for('follow.unfollow_user', following=other_user.id, user=other_user.username, **request.args) }}">Unfollow</a>
+<a class="btn btn-danger btn-block"  href="{{ url_for('follow.unfollow_user', following=other_user.id, user=other_user.username, **request.args) }}">
+    Unfollow
+</a>
 {% endif %}
+
+<h3>{{ other_user.number_of_followers }}</h3>
+{% if other_user.number_of_followers != 1 %}
+    Followers
+{% else %}
+    Follower
+{% endif %}
+<br>
 
 <div class="posts">
 {% for post in other_user.posts[::-1] %}

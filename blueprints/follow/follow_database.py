@@ -1,10 +1,6 @@
 import pymongo
 import os, sys
 from bson.objectid import ObjectId
-import settings
-import re
-from user import User
-from datetime import datetime, timedelta
 
 connectionUri = os.environ.get('chatreMongoConnectionUri')
 cluster = pymongo.MongoClient(connectionUri)
@@ -31,12 +27,7 @@ def is_following(follower, following):
 
     return follow
 
-def get_followers(following, count=True):
+def count_followers(following):
     query = {"following":following}
-    query_results = follow_collection.find(query)
-
-    if count:
-        return query_results.count()
-
-    else:
-        return query_results
+    query_results = follow_collection.count_documents(query)
+    return query_results
