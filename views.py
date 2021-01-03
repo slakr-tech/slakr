@@ -9,11 +9,13 @@ from auth import auth
 from blueprints.other_users.other_user import other_users
 from blueprints.posts.posts import posts
 from blueprints.follow.follow import follow
+from blueprints.settings.settings import settings
 
 app = Flask(__name__)
 app.register_blueprint(other_users, url_prefix="/users")
 app.register_blueprint(posts, url_prefix="/post")
 app.register_blueprint(follow, url_prefix="/follow")
+app.register_blueprint(settings, url_prefix="/settings")
 
 @app.route('/')
 def index():
