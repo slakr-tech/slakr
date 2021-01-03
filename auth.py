@@ -11,9 +11,6 @@ def auth():
         
         if signed_in:
             user = User(auth['_id'], auth['username'], auth['first_name'], auth['last_name'], auth['email'])
-            print(app_settings.Syntax['SEP'])
-            print(str(auth['_id']))
-            print(app_settings.Syntax['SEP'])
         
         return [signed_in, user]
-    return [False, '']
+    return [False, {}]
