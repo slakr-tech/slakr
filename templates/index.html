@@ -2,6 +2,10 @@
 
 {% block title %} CHATRE {% endblock %}
 
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='other-posts.css') }}?u={{ last_updated }}">
+{% endblock %}
+
 {% block content %}
 
 {% if signed_in %}
@@ -9,13 +13,16 @@
 <h1>Welcome to Chatre!</h1>
 <h2>Hello {{ user.first_name.title() }}</h2>
 
+
 {% if feed %}
+<div class="posts">
 {% for post in feed[::-1] %}
 
 {{ other_user_post(post, user) }}
 
 
 {% endfor %}
+</div>
 {% endif %}
 {% else %}
 
