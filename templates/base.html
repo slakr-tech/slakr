@@ -60,7 +60,7 @@
       <div class="card-body">
         <h5 class="card-title">{{ post.title.upper() }}</h5>
         <p class="card-text">{{ post.content }}</p>
-        <p class="card-text">Posted {{ other_user.time_since_post(post.date) }} ago</p>
+        <p class="card-text">Posted {{ other_user.time_since_post(post.date) }} ago by <a href="{{ url_for('other_user.specific_user_page', username=post.username) }}">{{ post.username }}</a></p>
       </div>
     </div>
   {%- endmacro %}

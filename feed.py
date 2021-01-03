@@ -8,14 +8,12 @@ def get_feed(user):
 
     following_statuses = fdb.get_following(user)
     posts = []
-
-    for following_status in following_statuses:
-        followed_user = db.get_user(following_status['following'], "_id")
-        print(dir(followed_user))
-        for i in pdb.get_posts(followed_user.id):
-            posts.append(i)
-    print('posts:')
-    print(posts)
-    if len(posts) < 50:
-        return posts
-    return posts[:50]
+    users = [following_status['following'] for following_status in following_statuses]
+    for i in pdb.get_posts_by_multiple_users(users):
+        posts.append(i)
+    if posts:
+        if len(posts) < 50:
+            return posts
+        return posts[:50]
+    else:
+        return False

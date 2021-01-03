@@ -9,13 +9,14 @@
 <h1>Welcome to Chatre!</h1>
 <h2>Hello {{ user.first_name.title() }}</h2>
 
-{% for post in feed %}
+{% if feed %}
+{% for post in feed[::-1] %}
 
 {{ other_user_post(post, user) }}
 
 
 {% endfor %}
-
+{% endif %}
 {% else %}
 
 <h1>CHATRE!</h1>

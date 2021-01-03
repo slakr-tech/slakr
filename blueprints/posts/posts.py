@@ -29,7 +29,7 @@ def create_post():
     elif not auth_status[0]:
         flash('You must be signed in to create a post, make sure you have cookies enabled')
 
-    return redirect(url_for('index'))
+    return redirect(url_for('myprofile'))
 
 @posts.route('/remove')
 def delete_post():

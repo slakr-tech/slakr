@@ -18,13 +18,18 @@ app.register_blueprint(follow, url_prefix="/follow")
 @app.route('/')
 def index():
     auth_status = auth()
-    return render_template("index.html", signed_in=auth_status[0],
-    user=auth_status[1], feed=feed.get_feed(auth_status[1].id))
+    settings.debug(auth_status[1])
+    if auth_status[0]:
+        return render_template("index.html", signed_in=auth_status[0],
+        user=auth_status[1], feed=feed.get_feed(auth_status[1].id))
+    
+    else:
+        return render_template("index.html", signed_in=auth_status[0])
 
 @app.route('/myprofile')
 def myprofile():
     auth_status = auth()
-    return render_template("post.html", signed_in=auth_status[0], user=auth_status[1])
+    return render_template("post.html", signed_in=auth_status[0],user=auth_status[1])
 
 
 @app.route('/signin', methods=["GET", "POST"])

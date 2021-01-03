@@ -13,7 +13,7 @@ class User:
         self.fullname            = self.first_name + ' ' + self.last_name
         self.email_confirmed     = False
         self.posts               = pdb.get_posts(self.id)
-        self.number_of_followers = fdb.count_followers(self.id)        
+        self.number_of_followers = fdb.count_followers(self.id)
 
     def time_since_post(self, time_posted, current_time = int(datetime.datetime.now().timestamp())):
         seconds_since_posted = current_time - time_posted
