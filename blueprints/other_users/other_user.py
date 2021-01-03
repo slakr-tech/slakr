@@ -4,7 +4,6 @@ sys.path.append("../..")
 import user_database as db
 from auth import auth
 from blueprints.follow.follow_database import is_following
-from user import User
 
 other_users = Blueprint("other_user", __name__, static_folder='static', template_folder='templates')
 
