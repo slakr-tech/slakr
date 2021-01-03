@@ -37,7 +37,6 @@ def delete_post():
     post_id = request.args.get('p')
     print(pdb.post_exists(auth_status[1].id, post_id))
     if post_id:
-        app_settings.debug('here')
         pdb.remove_post(auth_status[1].id, post_id)
         flash('post removed')
 
