@@ -20,14 +20,19 @@ def unfollow(follower, following):
     })
 
 def is_following(follower, following):
-    follow = follow_collection.find({
+    follow = follow_collection.count_documents({
         "follower":ObjectId(follower),
         "following":ObjectId(following)
-    }).count()
+    })
 
     return follow
 
 def count_followers(following):
     query = {"following":following}
     query_results = follow_collection.count_documents(query)
+    return query_results
+
+def get_following(follower):
+    query = {"follower":follower}
+    query_results = follow_collection.find(query)
     return query_results

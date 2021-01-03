@@ -83,8 +83,8 @@ def create_user(username, first_name, last_name, email, age, password1, password
     else:
         return settings.Syntax["UNKNOWN_ERROR_TRY_AGAIN"]
 
-def get_user(username):
-    user = user_collection.find_one({"username":username})
+def get_user(username, get_by="username"):
+    user = user_collection.find_one({get_by:username})
     if user:
         return User(user['_id'], user['username'], user['first_name'], user['last_name'], user['email'])
     else:

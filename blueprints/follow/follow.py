@@ -15,3 +15,4 @@ def follow_user():
 def unfollow_user():
     fdb.unfollow(auth()[1].id, request.args['following'])
     return redirect(url_for('other_user.specific_user_page', username=request.args.get('user')))
+

@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-from user import User
+import feed
 import user_database as db
 import encryption as enc
 import settings
@@ -18,7 +18,13 @@ app.register_blueprint(follow, url_prefix="/follow")
 @app.route('/')
 def index():
     auth_status = auth()
-    return render_template("index.html", signed_in=auth_status[0], user=auth_status[1])
+    return render_template("index.html", signed_in=auth_status[0],
+    user=auth_status[1], feed=feed.get_feed(auth_status[1].id))
+
+@app.route('/myprofile')
+def myprofile():
+    auth_status = auth()
+    return render_template("post.html", signed_in=auth_status[0], user=auth_status[1])
 
 
 @app.route('/signin', methods=["GET", "POST"])

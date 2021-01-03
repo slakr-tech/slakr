@@ -15,6 +15,7 @@ post_collection = db["posts"]
 def get_posts(user_id):
     post_documents = post_collection.find({"user_id": user_id})
     posts = []
+    print('pd', post_documents)
     for post in post_documents:
         posts.append(post)
     return posts
