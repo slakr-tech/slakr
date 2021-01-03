@@ -36,3 +36,6 @@ class User:
         else:
             print('s', seconds_since_posted)
             return "less than a minute"
+
+    def verify_email(self):
+        pass
