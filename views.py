@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 import feed
 import user_database as db
 import encryption as enc
-import settings
+import app_settings
 from auth import auth
 
 # BLUEPRINTS
@@ -20,7 +20,6 @@ app.register_blueprint(settings, url_prefix="/settings")
 @app.route('/')
 def index():
     auth_status = auth()
-    settings.debug(auth_status[1])
     if auth_status[0]:
         return render_template("index.html", signed_in=auth_status[0],
         user=auth_status[1], feed=feed.get_feed(auth_status[1].id))

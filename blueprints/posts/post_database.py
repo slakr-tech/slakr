@@ -2,7 +2,7 @@ import pymongo
 from bson.objectid import ObjectId
 import os, sys
 sys.path.append('../..')
-import settings
+import app_settings
 import encryption as enc
 import user_database as db
 import re

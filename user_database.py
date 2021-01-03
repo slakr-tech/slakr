@@ -1,6 +1,6 @@
 import pymongo
 import os, sys
-import settings
+import app_settings
 import encryption as enc
 import re
 from user import User
@@ -43,7 +43,7 @@ def authenticate(username, password):
 def create_user(username, first_name, last_name, email, age, password1, password2):
     not_allowed_chars = '[@_!#$%^&*()<>?/\|}]{~:,;+'
     # Rules
-    age_rule = age < settings.Rules["MINIMUM_AGE"]
+    age_rule = age < app_settings.Rules["MINIMUM_AGE"]
     user_taken = is_user_taken(username, email)
     password_match_rule = password1 != password2
     space_in_username_rule = ' ' in username
@@ -63,7 +63,7 @@ def create_user(username, first_name, last_name, email, age, password1, password
         if user_collection.find_one({'username':username}):
             return 'User created successfully! Please Sign in to your newly created chatre account!'
         else:
-            return settings.Syntax["UNKNOWN_ERROR_TRY_AGAIN"]
+            return app_settings.Syntax["UNKNOWN_ERROR_TRY_AGAIN"]
 
     elif age_rule:
         return "Users must be at least 13 years of age"
@@ -81,7 +81,7 @@ def create_user(username, first_name, last_name, email, age, password1, password
         return f"You cannot use any of the following characters in your username: {', '.join(not_allowed_chars)}"
 
     else:
-        return settings.Syntax["UNKNOWN_ERROR_TRY_AGAIN"]
+        return app_settings.Syntax["UNKNOWN_ERROR_TRY_AGAIN"]
 
 def get_user(username, get_by="username"):
     user = user_collection.find_one({get_by:username})

@@ -1,7 +1,7 @@
 from flask import session
 from user import User
 import user_database as db
-import settings
+import app_settings
 
 def auth():
     if session.get("USERNAME") and session.get("PASSWORD"):
@@ -11,9 +11,9 @@ def auth():
         
         if signed_in:
             user = User(auth['_id'], auth['username'], auth['first_name'], auth['last_name'], auth['email'])
-            print(settings.Syntax['SEP'])
+            print(app_settings.Syntax['SEP'])
             print(str(auth['_id']))
-            print(settings.Syntax['SEP'])
+            print(app_settings.Syntax['SEP'])
         
         return [signed_in, user]
     return [False, '']

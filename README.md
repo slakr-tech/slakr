@@ -19,12 +19,12 @@ Run App:
 python __init__.py
 ```
 \
-To change the host, change the following value for the "HOST" key in Run in settings.py:
+To change the host, change the following value for the "HOST" key in Run in app_settings.py:
 ```python
 "HOST": '0.0.0.0'
 ```
 \
-To turn off debug mode, change the following value for the "DEBUG" key in Run in settings.py:
+To turn off debug mode, change the following value for the "DEBUG" key in Run in app_settings.py:
 ```python
 "DEBUG": False
 ```

@@ -1,5 +1,5 @@
 from views import app
-from settings import *
+from app_settings import *
 
 app.config["SECRET_KEY"] = 'DEV'
 

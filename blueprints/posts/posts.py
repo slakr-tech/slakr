@@ -5,7 +5,7 @@ import user_database as db
 import blueprints.posts.post_database as pdb
 from auth import auth
 from user import User
-import settings
+import app_settings
 
 posts = Blueprint("posts", __name__, static_folder='static', template_folder='templates')
 
@@ -37,7 +37,7 @@ def delete_post():
     post_id = request.args.get('p')
     print(pdb.post_exists(auth_status[1].id, post_id))
     if post_id:
-        settings.debug('here')
+        app_settings.debug('here')
         pdb.remove_post(auth_status[1].id, post_id)
         flash('post removed')
 
