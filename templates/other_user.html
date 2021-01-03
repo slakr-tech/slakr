@@ -29,14 +29,7 @@
 
 <div class="posts">
 {% for post in other_user.posts[::-1] %}
-    <div class="card" style="width: 18rem;">
-        <div class="card-body">
-            <h5 class="card-title">{{ post.title.upper() }}</h5>
-            <p class="card-text">{{ post.content }}</p>
-            <p class="card-text">Posted {{ other_user.time_since_post(post.date) }} ago</p>
-        </div>
-    </div>
-
+    {{ other_user_post(post, other_user) }}
 {% endfor %}
 </div>
 
