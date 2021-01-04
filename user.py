@@ -54,7 +54,7 @@ class User:
             )
 
             subject = 'Slakr Email Verification'
-            body    = f'Verification Code:\n{vdb.get_verification_code()}'
+            body    = f'Verification Code:\n{vdb.get_verification_code(self)}'
 
             msg     = f'Subject: {subject}\n\n{body}'
             

@@ -8,30 +8,6 @@ import blueprints.email_verification.verification_database as vdb
 
 verify = Blueprint("verify", __name__, static_folder='static', template_folder='templates')
 
-def send_verification_email(u):
-    SLAKR_EMAIL_ADDRESS  = os.environ.get('slakremail')
-    SLAKR_EMAIL_PASSWORD = os.environ.get('slakremailpassword')
-
-    with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
-        smtp.ehlo()
-        smtp.starttls()
-        smtp.ehlo()
-        print(type(SLAKR_EMAIL_ADDRESS))
-        print(type(SLAKR_EMAIL_PASSWORD))
-
-        smtp.login(
-            SLAKR_EMAIL_ADDRESS,
-            SLAKR_EMAIL_PASSWORD
-        )
-        print(2)
-        subject = 'Slakr Email Verification'
-        body    = f'Verification Code:\n{ vdb.get_verification_code(u) }'
-
-        msg     = f'Subject: {subject}\n\n{body}'
-        
-        app_settings.debug('send email: ' + u.email)
-        smtp.sendmail(SLAKR_EMAIL_ADDRESS, u.email, msg)
-
 @verify.route('/', methods=['GET', 'POST'])
 def verification():
     auth_status = auth()
@@ -40,7 +16,7 @@ def verification():
             flash('Email is already confirmed')
             return redirect(url_for('index'))
         app_settings.debug('verification: ' + auth_status[1].email)
-        send_verification_email(auth_status[1])
+        auth_status[1].send_verification_email()
         return render_template('verification.html', signed_in=auth_status[0], user=auth_status[1])
 
     elif request.method == 'POST':
