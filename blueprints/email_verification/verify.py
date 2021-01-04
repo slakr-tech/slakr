@@ -36,6 +36,9 @@ def send_verification_email(u):
 def verification():
     auth_status = auth()
     if request.method == 'GET':
+        if auth_status[1].email_confirmed:
+            flash('Email is already confirmed')
+            return redirect(url_for('index'))
         app_settings.debug('verification: ' + auth_status[1].email)
         send_verification_email(auth_status[1])
         return render_template('verification.html', signed_in=auth_status[0], user=auth_status[1])
@@ -43,6 +46,7 @@ def verification():
     elif request.method == 'POST':
         verification_code = vdb.get_verification_code(auth_status[1])
         if verification_code == request.form['code']:
+            vdb.confirm(auth_status[1])
             flash('Email Verified')
             return redirect(url_for('index'))
 
