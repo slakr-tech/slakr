@@ -28,7 +28,12 @@
         {{ post.title.upper() }}
     </div>
     <div class="card-body">
-        <h5 class="card-title">{{ post.content }}</h5>
+        <h5 class="card-title">
+        {% for line in post.content.split('\n') %}
+            {{ line }}
+            <br>
+        {% endfor %}
+        </h5>
     </div>
     <a href="{{ url_for('posts.delete_post', p=post._id, **request.args) }}" class="btn btn-danger">Delete Post</a>
     <div class="card-footer text-muted">
