@@ -30,6 +30,11 @@
               <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('myprofile') }}">My Profile</a>
               </li>
+              {% if not user.email_confirmed %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('verify.verification') }}">Verify Email</a>
+                </li>
+              {% endif %}
               <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('signout') }}">Sign Out</a>
               </li>
