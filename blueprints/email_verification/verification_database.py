@@ -28,10 +28,6 @@ def date_difference_too_much(u, too_much_time=86400):
     now = int(dt.now().timestamp())
     if verification_code_doc['time_code_generated'] - too_much_time > now:
         change_code(u)
-        
-
-
-
 
 def get_verification_code(u):
     verification_code_doc_exists = verification_collection.count_documents({

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} CHATRE {% endblock %}
+{% block title %} Slakr {% endblock %}
 
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='other-posts.css') }}?u={{ last_updated }}">
@@ -10,7 +10,7 @@
 
 {% if signed_in %}
 
-<h1>Welcome to Chatre!</h1>
+<h1>Welcome to Slakr!</h1>
 <h2>Hello {{ user.first_name.title() }}</h2>
 
 
@@ -26,7 +26,7 @@
 {% endif %}
 {% else %}
 
-<h1>CHATRE!</h1>
+<h1>Slakr!</h1>
 <p>The open source social app</p>
 {% endif %}
 

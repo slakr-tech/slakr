@@ -24,7 +24,7 @@ def send_verification_email(u):
             SLAKR_EMAIL_PASSWORD
         )
         print(2)
-        subject = 'Chatre Email Verification'
+        subject = 'Slakr Email Verification'
         body    = f'Verification Code:\n{ vdb.get_verification_code(u) }'
 
         msg     = f'Subject: {subject}\n\n{body}'

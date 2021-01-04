@@ -61,7 +61,7 @@ def create_user(username, first_name, last_name, email, age, password1, password
             "email_confirmed": False
         })
         if user_collection.find_one({'username':username}):
-            return 'User created successfully! Please Sign in to your newly created chatre account!'
+            return 'User created successfully! Please Sign in to your newly created slakr account!'
         else:
             return app_settings.Syntax["UNKNOWN_ERROR_TRY_AGAIN"]
 
