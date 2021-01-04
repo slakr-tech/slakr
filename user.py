@@ -53,8 +53,8 @@ class User:
                 SLAKR_EMAIL_PASSWORD
             )
 
-            subject = 'Chatre Email Verification'
-            body    = f'Verification Code:\n{vf()}'
+            subject = 'Slakr Email Verification'
+            body    = f'Verification Code:\n{vdb.get_verification_code(self)}'
 
             msg     = f'Subject: {subject}\n\n{body}'
             

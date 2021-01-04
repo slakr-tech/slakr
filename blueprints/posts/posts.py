@@ -14,7 +14,6 @@ def create_post():
     auth_status = auth()
     post       = request.args.get('p')
     post_title = request.args.get('t')
-    print('auth status 1:', auth_status[1].id)
     for i in auth_status:
         print(auth_status)
     if post and auth_status[0]:
@@ -35,7 +34,6 @@ def create_post():
 def delete_post():
     auth_status = auth()
     post_id = request.args.get('p')
-    print(pdb.post_exists(auth_status[1].id, post_id))
     if post_id:
         pdb.remove_post(auth_status[1].id, post_id)
         flash('post removed')
@@ -46,4 +44,4 @@ def delete_post():
     elif not auth_status[0]:
         flash('You must be signed in to delete a post, make sure you have cookies enabled')
 
-    return redirect(url_for('index'))
+    return redirect(url_for('myprofile'))

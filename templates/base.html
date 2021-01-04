@@ -10,7 +10,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">CHATRE</a>
+          <a class="navbar-brand" href="#">Slakr</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -64,7 +64,12 @@
     <div class="card" style="width: 18rem;">
       <div class="card-body">
         <h5 class="card-title">{{ post.title.upper() }}</h5>
-        <p class="card-text">{{ post.content }}</p>
+        <p class="card-text">
+          {% for line in post.content.split('\n') %}
+            {{ line }}
+            <br>
+          {% endfor %}
+        </p>
         <p class="card-text">Posted {{ other_user.time_since_post(post.date) }} ago by <a href="{{ url_for('other_user.specific_user_page', username=post.username) }}">{{ post.username }}</a></p>
       </div>
     </div>
