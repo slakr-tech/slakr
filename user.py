@@ -1,7 +1,10 @@
 import datetime
+import smtplib
+import os
 
-import blueprints.posts.post_database    as pdb
-import blueprints.follow.follow_database as fdb
+import blueprints.posts.post_database                      as pdb
+import blueprints.follow.follow_database                   as fdb
+import blueprints.email_verification.verification_database as vdb
 
 class User:
     def __init__(self, id, username, first_name, last_name, email):
@@ -11,7 +14,7 @@ class User:
         self.last_name           = last_name
         self.email               = email
         self.fullname            = self.first_name + ' ' + self.last_name
-        self.email_confirmed     = False
+        self.email_confirmed     = vdb.email_confirmed(self)
         self.posts               = pdb.get_posts(self.id)
         self.number_of_followers = fdb.count_followers(self.id)
 
@@ -37,5 +40,22 @@ class User:
             print('s', seconds_since_posted)
             return "less than a minute"
 
-    def verify_email(self):
-        pass
+    def send_verification_email(self):        
+        SLAKR_EMAIL_ADDRESS  = os.environ.get('slakremail')
+        SLAKR_EMAIL_PASSWORD = os.environ.get('slakremailpassword')
+        with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
+            smtp.ehlo()
+            smtp.starttls()
+            smtp.ehlo()
+
+            smtp.login(
+                SLAKR_EMAIL_ADDRESS,
+                SLAKR_EMAIL_PASSWORD
+            )
+
+            subject = 'Chatre Email Verification'
+            body    = f'Verification Code:\n{vf()}'
+
+            msg     = f'Subject: {subject}\n\n{body}'
+            
+            smtp.sendmail(SLAKR_EMAIL_ADDRESS, self.email, msg)

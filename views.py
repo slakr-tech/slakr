@@ -10,19 +10,26 @@ from blueprints.other_users.other_user import other_users
 from blueprints.posts.posts import posts
 from blueprints.follow.follow import follow
 from blueprints.settings.settings import settings
+from blueprints.email_verification.verify import verify
 
 app = Flask(__name__)
 app.register_blueprint(other_users, url_prefix="/users")
 app.register_blueprint(posts, url_prefix="/post")
 app.register_blueprint(follow, url_prefix="/follow")
 app.register_blueprint(settings, url_prefix="/settings")
+app.register_blueprint(verify, url_prefix="/email_verification")
 
 @app.route('/')
 def index():
     auth_status = auth()
     if auth_status[0]:
-        return render_template("index.html", signed_in=auth_status[0],
-        user=auth_status[1], feed=feed.get_feed(auth_status[1].id))
+        if auth_status[1].email_confirmed:
+            return render_template("index.html", signed_in=auth_status[0],
+            user=auth_status[1], feed=feed.get_feed(auth_status[1].id), verified=True)
+
+        elif not auth_status[1].email_confirmed:
+            return render_template("index.html", signed_in=auth_status[0],
+            user=auth_status[1], feed=feed.get_feed(auth_status[1].id), verified=False)
     
     else:
         return render_template("index.html", signed_in=auth_status[0])

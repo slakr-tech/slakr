@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %} Verification Test {% endblock %}
+
+{% block content %}
+<h1>Email Verification</h1>
+<form method="post">
+    <input placeholder="Verification Code goes here" name="code" type="number">
+    <input value="Verify" type="submit" class="btn btn-primary mb-3">
+</form>
+{% endblock %}
