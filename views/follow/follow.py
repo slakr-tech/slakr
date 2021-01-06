@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, session, redirect, url_for, request
 import sys
 sys.path.append("../..")
-import blueprints.follow.follow_database as fdb
+import views.follow.follow_database as fdb
 from auth import auth
 
 follow = Blueprint("follow", __name__, static_folder='static', template_folder='templates')

@@ -2,9 +2,9 @@ import datetime
 import smtplib
 import os
 
-import blueprints.posts.post_database                      as pdb
-import blueprints.follow.follow_database                   as fdb
-import blueprints.email_verification.verification_database as vdb
+import views.posts.post_database                      as pdb
+import views.follow.follow_database                   as fdb
+import views.email_verification.verification_database as vdb
 
 class User:
     def __init__(self, id, username, first_name, last_name, email):
