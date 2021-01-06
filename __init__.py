@@ -11,5 +11,5 @@ if __name__ == '__main__':
     app.run(
         host = Run["HOST"],
         port = Run["PORT"],
-        debug = Run["DEBUG"]
+        debug=False
         )
