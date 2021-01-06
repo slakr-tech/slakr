@@ -2,9 +2,9 @@ import datetime
 import smtplib
 import os
 
-import views.posts.post_database as pdb
-import views.follow.follow_database as fdb
-import views.email_verification.verification_database as vdb
+from views.posts.post_database import *
+from views.follow.follow_database import *
+from views.email_verification.verification_database import *
 
 class User:
     def __init__(self, id, username, first_name, last_name, email):
@@ -14,9 +14,9 @@ class User:
         self.last_name           = last_name
         self.email               = email
         self.fullname            = self.first_name + ' ' + self.last_name
-        self.email_confirmed     = vdb.email_confirmed(self)
-        self.posts               = pdb.get_posts(self.id)
-        self.number_of_followers = fdb.count_followers(self.id)
+        self.email_confirmed     = email_confirmed(self)
+        self.posts               = get_posts(self.id)
+        self.number_of_followers = count_followers(self.id)
 
     def time_since_post(self, time_posted, current_time = int(datetime.datetime.now().timestamp())):
         seconds_since_posted = current_time - time_posted
