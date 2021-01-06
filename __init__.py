@@ -1,4 +1,4 @@
-from views import app
+from slakr import app
 from app_settings import *
 
 app.config["SECRET_KEY"] = 'DEV'
