@@ -14,6 +14,7 @@ database = cluster["users"]
 post_collection = database["posts"]
 
 def get_posts(user_id):
+    print('get_posts called')
     post_documents = post_collection.find({"user_id": user_id})
     posts = []
     for post in post_documents:
