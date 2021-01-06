@@ -2,8 +2,8 @@ import datetime
 import smtplib
 import os
 
-import views.posts.post_database                      as pdb
-import views.follow.follow_database                   as fdb
+import views.posts.post_database as pdb
+import views.follow.follow_database as fdb
 import views.email_verification.verification_database as vdb
 
 class User:

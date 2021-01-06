@@ -4,6 +4,7 @@ import user_database as db
 import encryption as enc
 import app_settings
 from auth import auth
+import os
 
 # BLUEPRINTS
 from views.other_users.other_user import other_users
@@ -18,6 +19,12 @@ app.register_blueprint(posts, url_prefix="/post")
 app.register_blueprint(follow, url_prefix="/follow")
 app.register_blueprint(settings, url_prefix="/settings")
 app.register_blueprint(verify, url_prefix="/email_verification")
+
+# SECRET KEY
+secret_key = os.environ.get('chatre_secret_key')
+if not secret_key:
+    secret_key = 'DEV'
+app.config["SECRET_KEY"] = secret_key
 
 @app.route('/')
 def index():
@@ -94,3 +101,6 @@ def signout():
     session.pop('USERNAME', None)
     session.pop('PASSWORD', None)
     return redirect(url_for('index'))
+
+if __name__ == '__main__':
+    app.run(debug=True)
