@@ -1,5 +1,5 @@
-import blueprints.posts.post_database as pdb
-import blueprints.follow.follow_database as fdb
+import views.posts.post_database as pdb
+import views.follow.follow_database as fdb
 import user_database as db
 
 def get_feed(user):

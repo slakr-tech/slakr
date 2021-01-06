@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, session, redirect, url_for, reques
 import sys
 sys.path.append("../..")
 import user_database as db
-import blueprints.posts.post_database as pdb
+import views.posts.post_database as pdb
 from auth import auth
 from user import User
 import app_settings

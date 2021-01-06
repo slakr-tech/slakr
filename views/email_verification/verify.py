@@ -4,7 +4,7 @@ import smtplib
 sys.path.append('../..')
 from auth import auth
 import app_settings
-import blueprints.email_verification.verification_database as vdb
+import views.email_verification.verification_database as vdb
 
 verify = Blueprint("verify", __name__, static_folder='static', template_folder='templates')
 

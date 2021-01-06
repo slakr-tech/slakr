@@ -6,11 +6,11 @@ import app_settings
 from auth import auth
 
 # BLUEPRINTS
-from blueprints.other_users.other_user import other_users
-from blueprints.posts.posts import posts
-from blueprints.follow.follow import follow
-from blueprints.settings.settings import settings
-from blueprints.email_verification.verify import verify
+from views.other_users.other_user import other_users
+from views.posts.posts import posts
+from views.follow.follow import follow
+from views.settings.settings import settings
+from views.email_verification.verify import verify
 
 app = Flask(__name__)
 app.register_blueprint(other_users, url_prefix="/users")
