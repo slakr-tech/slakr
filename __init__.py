@@ -1,7 +1,11 @@
-from views import app
+from slakr import app
 from app_settings import *
+import os
 
-app.config["SECRET_KEY"] = 'DEV'
+secret_key = os.environ.get('chatre_secret_key')
+if not secret_key:
+    secret_key = 'DEV'
+app.config["SECRET_KEY"] = secret_key
 
 if __name__ == '__main__':
     app.run(
